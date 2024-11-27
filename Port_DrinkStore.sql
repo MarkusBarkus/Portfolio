@@ -14,21 +14,23 @@ CREATE TABLE Drinks
 (
 Id INT IDENTITY NOT NULL,
 drinkName varchar(50),
-cost money
+cost money NOT NULL,
+Picture VARBINARY(MAX) NULL,
+Calories INT,
 CONSTRAINT PK_Drinks PRIMARY KEY(Id)
 )
 GO
 
 -- add drinks
-INSERT INTO Drinks (drinkName, cost) VALUES ('Pumpkin Spice Latte', 6.5)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Coffee', 2)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Ice Coffee', 3.5)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Hot Choclate', 3.5)
-INSERT INTO Drinks (drinkName, cost) VALUES ('English Breakfast Tea', 2)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Apple Cider', 2.5)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Latte', 4)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Cold Brew', 4)
-INSERT INTO Drinks (drinkName, cost) VALUES ('Cappuccino', 4.5)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Pumpkin Spice Latte', 6.5, 180)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Coffee', 2, 6)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Ice Coffee', 3.5, 55)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Hot Choclate', 3.5, 120)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('English Breakfast Tea', 2, 4)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Apple Cider', 2.5, 140)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Latte', 4, 135)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Cold Brew', 4, 7)
+INSERT INTO Drinks (drinkName, cost, Calories) VALUES ('Cappuccino', 4.5, 70)
 GO
 
 --memberships to distinguish customers who buy more and give exclusive offers
@@ -39,16 +41,21 @@ CREATE TABLE membership
 )
 GO
 --Add membership ranks 
---non member purchase 
-INSERT INTO membership (membershipName) VALUES ('No membership'); 
 --first rank, exclusive offers every now and then (implement in later update)
 INSERT INTO membership (membershipName) VALUES ('Bronze');
 -- 5% off, more exlusive offers (implement later)
 INSERT INTO membership (membershipName) VALUES ('Silver');
--- 10% off, more exlusive offers, ?possible priotity in wait queue? (implement later)
+-- 7% off, more exlusive offers, ?possible priotity in wait queue? (implement later)
 INSERT INTO membership (membershipName) VALUES ('Gold');
+-- 10% off, more exlusive offers, ?possible priotity in wait queue? (implement later)
+INSERT INTO membership (membershipName) VALUES ('platinum ');
 -- special rank for employees, will give 20% discount (implementation later)
 INSERT INTO membership (membershipName) VALUES ('Employee');
+
+
+
+--non member purchase to be added later
+--INSERT INTO membership (membershipName) VALUES ('No membership'); 
 GO
 
 --Table to hold customer info
@@ -82,3 +89,53 @@ INSERT INTO Customers (FirstName,LastName,PhoneNum,Email,membership) VALUES ('Je
 INSERT INTO Customers (FirstName,LastName,PhoneNum,Email,membership) VALUES ('Arnov','Clumpenvander','519-719-3230','arnovcl@gmail.com',4) 
 GO
 
+CREATE TABLE Orders
+( Id INT IDENTITY NOT NULL,
+  CustomerId INT NOT NULL,
+
+
+  CONSTRAINT PK_Orders PRIMARY KEY(Id)
+)
+GO
+
+
+--Employees (future update)
+/*
+CREATE TABLE Employees
+( Id INT IDENTITY NOT NULL,
+  FirstName VARCHAR(50) NOT NULL,
+  LastName VARCHAR(50),
+  PhoneNum VARCHAR(25),
+  Email VARCHAR(50),
+  Picture VARBINARY(MAX) NULL,
+  membership INT NOT NULL default 5,
+  Wage money,
+  streetNum INT NOT NULL,
+  unitNum INT,
+  Province VARCHAR(50),
+  Country VARCHAR(50),
+  streetName VARCHAR(50),
+  StoreId INT
+
+  Timer ROWVERSION,
+  CONSTRAINT PK_Customers PRIMARY KEY(Id)
+)*/
+
+--Store (future update)
+/*
+CREATE TABLE Employees
+( Id INT IDENTITY NOT NULL,
+  PhoneNum VARCHAR(25),
+  streetNum INT NOT NULL,
+  Province VARCHAR(50),
+  Country VARCHAR(50),
+  streetName VARCHAR(50),
+  Timer ROWVERSION,
+  CONSTRAINT PK_Customers PRIMARY KEY(Id)
+)
+*/
+
+GO
+
+
+--
